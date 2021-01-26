@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<style>
+    img {
+        width:70%
+    }
+</style>
+    
+<head>
+    <meta charset="utf-8">
+    <title>Lab3</title>
+</head>
+
+<body id="bod">
+    <p id="para">Hello World!</p>
+</body>
+
+
+</html>
+<script>
+        document.getElementById("para").innerHTML = "";
+        fetch("https://api.nasa.gov/planetary/apod?api_key=sVLjZ4ZjZmDImGftiJ8f2B5X3pgFidR9S26wVY7Y").then( (response) => response.json())
+        .then((response) => {
+            let h1 = document.createElement("h1");
+            let p2 = document.createElement("p2");
+            let img = document.createElement("img");
+            h1.innerText = response.title;
+            p2.innerText = response.explanation;
+            img.src = response.hdurl;
+            document.querySelector("#bod").appendChild(h1);
+            document.querySelector("#bod").appendChild(p2);
+            document.querySelector("#bod").appendChild(img);
+        });
+
+</script>
