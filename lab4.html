@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <title></title>
+</head>
+
+<body id="bod1">
+    <div id="cont1" class="container">
+        <h1></h1>
+
+
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <h5 id="title" class="card-title">Card title</h5>
+                    <h6 id="time" class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                    <p id="add" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p id="phone" class="card-text"></p>
+                    <a id="web" href="#" class="card-link">Website</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    
+        fetch("https://data.cityofchicago.org/resource/x8fc-8rcq.json")
+        .then( Response => {return Response.json();})
+        .then( Response => { 
+            var i;
+            for(i=0; i<Response.length;i++){
+                //let new_cont = document.querySelector("#cont1").cloneNode(true);
+                //document.querySelector("#bod1").appendChild(new_cont);
+                document.querySelector("#title").innerText = Response[i].name_;
+                document.querySelector("#time").innerText = Response[i].hours_of_operation;
+                document.querySelector("#add").innerText = Response[i].address + '\n' + Response[i].city + ' ' + Response[i].state + ' ' + Response[i].zip;
+                document.querySelector("#phone").innerText = Response[i].phone;
+                document.querySelector("#web").href = Response[i].website["url"];
+                let new_cont = document.querySelector("#cont1").cloneNode(true);
+                document.querySelector("#bod1").appendChild(new_cont);
+            }
+        })
+        
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title id="title"> DOM Manipulation </title>
+
+    <style>
+      .big {font-size:3em; }
+      .blue {color: blue;}
+      .bigBorder {border: black 3px solid;}
+        
+        .imgsize {
+            width:25%;
+            height:25%;
+        }
+        
+        div1 {
+             color: green;
+        }
+    </style>
+
+  </head>
+  <body>
+
+    <div id="div1" class="bigBorder" ></div>
+    <div id="div2">
+      <img id="img1" src="">
+    </div>
+    <div id="div3">
+      This div should be programmatically removed.
+    </div>
+
+    <ul id="ul1">
+      <li id="list1" class="big blue">IT202</li>
+    </ul>
+
+    <script>
+
+      //1
+        document.getElementById("div1").innerHTML = "UIC";
+
+      //2
+        document.getElementById("div1").style.color = "#D50032";
+
+      //3
+        document.getElementById("div1").classList.add("big");
+
+      //4
+        document.getElementById("img1").src = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/University_of_Illinois_at_Chicago_circle_logo.svg/1200px-University_of_Illinois_at_Chicago_circle_logo.svg.png"
+
+      //5
+        document.getElementById("img1").classList.add("imgsize");
+
+      //6 
+        document.getElementById("div3").remove();
+
+      //7 
+        document.querySelector("title").innerText = "onkardangi";
+
+      //8 
+        var x = document.createElement("Li");
+        
+        
+      //9
+        var t = document.createTextNode("Computer Science");
+
+      //10
+        x.appendChild(t);
+        document.getElementById("ul1").appendChild(x);
+
+      //11
+        document.getElementById("list1").classList.remove("big");
+
+      //12
+        document.querySelector("li").classList.add("blue");
+
+      //13
+        let clone_img = document.querySelector("#img1").cloneNode(true);
+
+      //14
+        document.querySelector("#div1").appendChild(clone_img);
+
+
+
+    </script>
+
+
+  </body>
+</html>
