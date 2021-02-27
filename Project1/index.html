@@ -125,15 +125,18 @@
     <!-- Result -->
     <div id="result" class="visually-hidden">
         <h1>Testing result</h1>
-
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 id="cm_area_name" class=" card-title ">Card title</h5>
-                <h6 id="address" class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
-                <a id="pin" class="card-link">Card link</a>
+        <div id="cont1">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header" id="pin-num">
+                    Pin
+                </div>
+                <div class="card-body">
+                    <h5 id="cm_area_name" class=" card-title ">Card title</h5>
+                    <h6 id="address" class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
+                </div>
             </div>
         </div>
-
+        <label></label>
     </div>
 
     <!-- Map -->
@@ -203,13 +206,13 @@
             var zip_value = document.querySelector("#zip").value;
 
 
-            endpoint = endpoint + "?" + "id=" + id_value +
+            endpoint = endpoint + "?" // + "id=" + id_value +
 
 
-                "&community_area_number=" + cm_area_num_value +
+            "community_area_number=" + cm_area_num_value
 
 
-                "&address=" + add_value;
+            //+ "&address=" + add_value;
             // +  & zip_code = " + zip_value + " & pin = " + pin_value;;
 
             fetch(endpoint)
@@ -246,11 +249,11 @@
 
                         document.querySelector("#cm_area_name").innerText = record["community_area_name"];
                         document.querySelector("#address").innerText = record["address"];
-                        document.querySelector("#pin").textContent = record["pin"];
+                        document.querySelector("#pin-num").textContent = record["property_status"];
 
+                        let new_cont = document.querySelector("#cont1").cloneNode(true);
+                        document.querySelector("#result").appendChild(new_cont);
 
-                        uluru.lat = record["latitude"];
-                        uluru.lng = record["longitude"];
 
                     }
                 })
@@ -292,4 +295,3 @@
 </body>
 
 </html>
-
