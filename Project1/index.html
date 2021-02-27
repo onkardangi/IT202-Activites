@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+    <style type="text/css">
+        /* Set the size of the div element that contains the map */
+        
+        #map {
+            height: 400px;
+            /* The height is 400 pixels */
+            width: 100%;
+            /* The width is the width of the web page */
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand">LAND INVENTORY</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current=" page " href="#" onclick="homeFunc()">Home</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="#" onclick="formFunc()">Search</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="#" onclick="resultFunc()">Results</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="#" onclick="mapFunc()">Map</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="# " onclick="aboutFunc()">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- home -->
+    <div id="home" class="visually-hidden">
+        <h1>Home</h1>
+        <p>
+            This app lets you search the city of Chicago City-Owned Land Inventory Data.
+        </p>
+        <p>
+            You can find more information at
+            <a href="https://dev.socrata.com/foundry/data.cityofchicago.org/aksk-kvfp ">City-Owned Data Chicago
+            </a>
+        </p>
+        <p>
+            To get started, navigate to the search screen, make your selections and search. You can view a list of the results on the Result screen or view a map of the result on the map screen.
+        </p>
+    </div>
+
+    <!-- Form -->
+    <div id="form" class="visually-hidden">
+        <h1>Put down all the info you know and want to look for</h1>
+        <div id="example" class="container">
+            <form id="form1">
+                <div class="form-row">
+
+                    <div class="form-group col-md-4">
+                        <label for="id" name="id">Enter the five digit id</label>
+                        <input type="number" class="form-control" id="id" placeholder="12345">
+                    </div>
+
+
+                    <div class="form-group col-md-4">
+                        <label for="pin">Enter the pin </label>
+                        <input type="number" class="form-control" id="pin" placeholder="16-11-400-017-0000">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="cm_area_num" name="id"> Enter the community area number </label>
+                        <input type="number" class="form-control" id="cm_area_num" placeholder="12345">
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="addy">Enter the address</label>
+                        <input type="text" class="form-control" id="addy" placeholder="1234 S Halsted St">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="man-org">Enter the zip code </label>
+                        <input type="number" class="form-control" id="zip" placeholder="60607">
+                    </div>
+                </div>
+
+
+                <div>
+                    <label>
+                    </label>
+                </div>
+
+                <button type="search" class="btn btn-primary" onclick="lookUp()">Search</button>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- Testing output-->
+    <div id="output">
+
+    </div>
+
+    <!-- Result -->
+    <div id="result" class="visually-hidden">
+        <h1>Testing result</h1>
+
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 id="cm_area_name" class=" card-title ">Card title</h5>
+                <h6 id="address" class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
+                <a id="pin" class="card-link">Card link</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Map -->
+    <div>
+
+        <!--The div element for the map -->
+        <div id="map" class="visually-hidden">
+            <h3>Google Maps</h3>
+        </div>
+    </div>
+
+
+    <!-- About -->
+    <div id="about" class="visually-hidden ">
+        <h1>This app is designed by Onkar Dangi as the Project 1 for IT202 Fall 2021</h1>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js " integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0 " crossorigin="anonymous ">
+    </script>
+
+    <script>
+        function homeFunc() {
+            document.querySelector("#home").className = "visible";
+            document.querySelector("#result").className = "visually-hidden";
+            document.querySelector("#form").className = "visually-hidden ";
+            document.querySelector("#about").className = "visually-hidden ";
+            document.querySelector("#map").className = "visually-hidden";
+        }
+
+        function formFunc() {
+            document.querySelector("#home").className = "visually-hidden ";
+            document.querySelector("#form").className = "visible ";
+            document.querySelector("#result").className = "visually-hidden ";
+            document.querySelector("#about").className = "visually-hidden ";
+            document.querySelector("#map").className = "visually-hidden";
+        }
+
+        function resultFunc() {
+            document.querySelector("#result").className = "visible ";
+            document.querySelector("#form").className = "visually-hidden ";
+            document.querySelector("#home").className = "visually-hidden ";
+            document.querySelector("#about").className = "visually-hidden ";
+            document.querySelector("#output").innerText = "";
+            document.querySelector("#map").className = "visually-hidden";
+        }
+
+        function aboutFunc() {
+            document.querySelector("#result").className = "visually-hidden ";
+            document.querySelector("#form").className = "visually-hidden ";
+            document.querySelector("#home").className = "visually-hidden ";
+            document.querySelector("#about").className = "visible ";
+            document.querySelector("#map").className = "visually-hidden";
+        }
+    </script>
+
+    <script>
+        function lookUp() {
+            document.querySelector("#output").innerText = "fetching results. Click on results to view it. ";
+
+            let endpoint = "https://data.cityofchicago.org/resource/aksk-kvfp.json";
+
+            var id_value = document.querySelector("#id").value;
+            var pin_value = document.querySelector("#pin").value;
+            var cm_area_num_value = document.querySelector("#cm_area_num").value;
+            var add_value = document.querySelector("#addy").value;
+            var zip_value = document.querySelector("#zip").value;
+
+
+            endpoint = endpoint + "?" + "id=" + id_value +
+
+
+                "&community_area_number=" + cm_area_num_value +
+
+
+                "&address=" + add_value;
+            // +  & zip_code = " + zip_value + " & pin = " + pin_value;;
+
+            fetch(endpoint)
+                .then((response) => {
+                    return response.json()
+                })
+                .then((json) => {
+                    console.log(json);
+
+                    // loop the JSON (in this case, an array of objects)
+                    for (let record of json) {
+                        console.log(record);
+
+                        // let p1 = document.createElement("p");
+                        // let p2 = document.createElement("p");
+                        // let p3 = document.createElement("p");
+                        // let p4 = document.createElement("p");
+                        // let p5 = document.createElement("p");
+
+
+                        // p1.textContent = record["id"];
+                        // p2.textContent = record["pin"];
+                        // p3.textContent = record["community_area_number"];
+                        // p4.textContent = record["address"];
+                        // p5.textContent = record["zip_code"];
+
+                        // document.querySelector("#output").appendChild(p1);
+                        // document.querySelector("#output").appendChild(p2);
+                        // document.querySelector("#output").appendChild(p3);
+                        // document.querySelector("#output").appendChild(p4);
+                        // document.querySelector("#output").appendChild(p5);
+
+                        //document.querySelector("#result").className = "visible";
+
+                        document.querySelector("#cm_area_name").innerText = record["community_area_name"];
+                        document.querySelector("#address").innerText = record["address"];
+                        document.querySelector("#pin").textContent = record["pin"];
+
+
+                        uluru.lat = record["latitude"];
+                        uluru.lng = record["longitude"];
+
+                    }
+                })
+        }
+
+        function mapFunc() {
+            document.querySelector("#map").className = "visible";
+            document.querySelector("#result").className = "visually-hidden ";
+            document.querySelector("#form").className = "visually-hidden ";
+            document.querySelector("#home").className = "visually-hidden ";
+            document.querySelector("#about").className = "visually-hidden ";
+
+            let uluru = {
+                lat: 41.88759182577772,
+                lng: -87.71395114919792
+            };
+
+            // The map, centered at Uluru
+            let map = new google.maps.Map(document.querySelector("#map"), {
+                zoom: 8,
+                center: uluru,
+            });
+
+            // The marker, positioned at Uluru
+            const marker = new google.maps.Marker({
+                position: uluru,
+                map: map,
+            });
+
+        }
+    </script>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCf-AOIxujvJ3WpnTzLK-_uekSRu3A1Sa4&callback=initMap&libraries=&v=weekly" async>
+    </script>
+
+
+
+</body>
+
+</html>
+
