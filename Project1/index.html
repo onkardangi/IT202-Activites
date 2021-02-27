@@ -79,12 +79,6 @@
                         <input type="number" class="form-control" id="id" placeholder="12345">
                     </div>
 
-
-                    <div class="form-group col-md-4">
-                        <label for="pin">Enter the pin </label>
-                        <input type="number" class="form-control" id="pin" placeholder="16-11-400-017-0000">
-                    </div>
-
                     <div class="form-group col-md-4">
                         <label for="cm_area_num" name="id"> Enter the community area number </label>
                         <input type="number" class="form-control" id="cm_area_num" placeholder="12345">
@@ -97,11 +91,6 @@
                     <div class="form-group col-md-4">
                         <label for="addy">Enter the address</label>
                         <input type="text" class="form-control" id="addy" placeholder="1234 S Halsted St">
-                    </div>
-
-                    <div class="form-group col-md-4">
-                        <label for="man-org">Enter the zip code </label>
-                        <input type="number" class="form-control" id="zip" placeholder="60607">
                     </div>
                 </div>
 
@@ -133,6 +122,7 @@
                 <div class="card-body">
                     <h5 id="cm_area_name" class=" card-title ">Card title</h5>
                     <h6 id="address" class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
+                    <h7 id="sq"></h7>
                 </div>
             </div>
         </div>
@@ -200,20 +190,29 @@
             let endpoint = "https://data.cityofchicago.org/resource/aksk-kvfp.json";
 
             var id_value = document.querySelector("#id").value;
-            var pin_value = document.querySelector("#pin").value;
+            //var pin_value = document.querySelector("#pin").value;
             var cm_area_num_value = document.querySelector("#cm_area_num").value;
             var add_value = document.querySelector("#addy").value;
-            var zip_value = document.querySelector("#zip").value;
+            //var zip_value = document.querySelector("#zip").value;
 
 
-            endpoint = endpoint + "?" // + "id=" + id_value +
-
-
-            "community_area_number=" + cm_area_num_value
-
-
-            //+ "&address=" + add_value;
+            endpoint = endpoint + "?" +
+                "id=" + id_value +
+                "&community_area_number=" + cm_area_num_value +
+                "&address=" + add_value;
             // +  & zip_code = " + zip_value + " & pin = " + pin_value;;
+
+            // The location 
+            let Chicago = {
+                lat: 41.88759182577772,
+                lng: -87.71395114919792
+            };
+
+            // The map, centered at Uluru
+            let map = new google.maps.Map(document.querySelector("#map"), {
+                zoom: 8,
+                center: Chicago,
+            });
 
             fetch(endpoint)
                 .then((response) => {
@@ -250,9 +249,28 @@
                         document.querySelector("#cm_area_name").innerText = record["community_area_name"];
                         document.querySelector("#address").innerText = record["address"];
                         document.querySelector("#pin-num").textContent = record["property_status"];
+                        document.querySelector("sq").innerText = record["sq_ft"];
 
                         let new_cont = document.querySelector("#cont1").cloneNode(true);
                         document.querySelector("#result").appendChild(new_cont);
+
+
+                        // The marker, positioned at Uluru
+                        let marker = new google.maps.Marker({
+                            position: {
+                                lat: parseFloat(record["latitude"]),
+                                lng: parseFloat(record["longitude"])
+                            },
+                            map: map,
+                        });
+
+                        let myInfowindow = new google.maps.InfoWindow({
+                            content: record["id"]
+                        });
+
+                        marker.addListener('click', function() {
+                            myInfowindow.open(map, marker);
+                        });
 
 
                     }
@@ -271,17 +289,17 @@
                 lng: -87.71395114919792
             };
 
-            // The map, centered at Uluru
-            let map = new google.maps.Map(document.querySelector("#map"), {
-                zoom: 8,
-                center: uluru,
-            });
+            // // The map, centered at Uluru
+            // let map = new google.maps.Map(document.querySelector("#map"), {
+            //     zoom: 8,
+            //     center: uluru,
+            // });
 
             // The marker, positioned at Uluru
-            const marker = new google.maps.Marker({
-                position: uluru,
-                map: map,
-            });
+            // let marker = new google.maps.Marker({
+            //     position: uluru,
+            //     map: map,
+            // });
 
         }
     </script>
