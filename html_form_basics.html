@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>repl.it</title>
+</head>
+
+<body>
+	<h1>Form Basics</h1>
+	<p id="uptonSinclairQuote"> It is difficult to get a man to understand something, when his salary depends upon his not understanding it! -- Upton Sinclair
+	</p>
+
+	<form id="form1" name="form1">
+
+		<input type="text" id="text1" name="text1"><br>
+
+      <p> Radio buttons </p>
+      <input type="radio" id="radio1" name="radio1" value="red">
+      <label for="red">red</label><br>
+
+      <input type="radio" id="radio1" name="radio1" value="green">
+      <label for="green">green</label><br>
+
+      <input type="radio" id="radio1" name="radio1" value="blue">
+      <label for="blue">blue</label><br>
+
+      <p> Select Example </p>
+      <label for="day">Choose a day:</label>
+      <select name="day" id="select1">
+        <option value="default"></option>
+        <option value="Monday">Monday</option>
+        <option value="Wednesday">Wednesday</option>
+        <option value="Friday">Friday</option>
+        
+      </select>
+      <br><br>
+
+      <p></p>
+      <textarea id="textarea1" name="textarea1" placeholder="Please provide any additional feedback" rows="5" cols="33"><br>
+      </textarea>
+
+    </form>
+
+    <script>
+      let name = document.querySelector("#text1").value = "Onkar Dangi"
+
+      let rbutton = document.querySelector('input[value="green"]').checked = "true"
+
+      let quote = document.querySelector("p").innerHTML
+      document.querySelector("#textarea1").value = quote
+
+      let selectElement = document.querySelector('#select1');
+
+      selectElement.addEventListener('change', (event) => {
+        console.log(event.target.value);
+      });
+
+
+    </script>
+  </body>
+</html>
