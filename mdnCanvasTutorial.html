@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Canvas tutorial</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+    <script type="text/javascript">
+        function draw() {
+            var canvas = document.querySelector('#tutorial');
+            if (canvas.getContext) {
+                var ctx = canvas.getContext('2d');
+
+                ctx.beginPath();
+                ctx.arc(75, 105, 50, 0, Math.PI * 2, true); // Outer circle
+                ctx.moveTo(110, 105);
+                ctx.arc(75, 105, 35, 0, Math.PI, false); // Mouth (clockwise)
+                ctx.moveTo(65, 95);
+                ctx.arc(60, 95, 5, 0, Math.PI * 2, true); // Left eye
+                ctx.moveTo(95, 95);
+                ctx.arc(90, 95, 5, 0, Math.PI * 2, true); // Right eye
+                ctx.stroke();
+
+                //shadow 
+                ctx.shadowColor = "black";
+                ctx.shadowBlur = 6;
+                ctx.shadowOffsetX = 6;
+                ctx.shadowOffsetY = 6;
+
+                ctx.fillStyle = "red"
+                ctx.font = 'italic 30px Audiowide';
+                ctx.fillText('Onkar Dangi', 10, 40);
+
+                var rectangle = new Path2D();
+                rectangle.rect(100, 200, 50, 50);
+
+                var circle = new Path2D();
+                circle.arc(200, 225, 25, 0, 2 * Math.PI);
+
+                ctx.fillStyle = "blue"
+                ctx.fill(rectangle);
+
+
+                //ctx.shadowColor = "red";
+                ctx.shadowBlur = 0;
+                ctx.shadowOffsetX = 0;
+                ctx.shadowOffsetY = 0;
+                ctx.fillStyle = "red"
+                ctx.fill(circle);
+
+                var img = document.querySelector("#source");
+                ctx.drawImage(img, 20, 200, 50, 50);
+                ctx.drawImage(img, 240, 200, 50, 50);
+                ctx.drawImage(img, 240, 50, 50, 50);
+                ctx.drawImage(img, 150, 60, 50, 50);
+
+
+            }
+
+        }
+    </script>
+    <style type="text/css">
+        canvas {
+            border: 1px solid black;
+            background-color: rebeccapurple;
+        }
+    </style>
+</head>
+
+<body onload="draw();">
+    <canvas id="tutorial" width="300" height="300"></canvas>
+    <div style="display:none;">
+        <img id="source" src="https://mdn.mozillademos.org/files/5397/rhino.jpg" width="300" height="227">
+    </div>
+</body>
+
+</html>
