@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
 
     <style>
-      .bigger {width:400px; height:600px;}
+      .bigger {width:600px; height:800px;}
       blockquote {font-family: "Architects Daughter", Arial; font-size: 2em; }
     </style>
 
@@ -30,21 +30,19 @@
 
     <script>
         
-        document.getElementById("images").addEventListener("mouseover", func);
+        document.querySelector("#images").addEventListener("mouseover", funcAdd(){
+                                                           document.querySelector("#images").classList.add("bigger");
+                                                           });
 
-        document.getElementById("images").addEventListener("mouseout", funcRemove);
+        document.querySelector("#images").addEventListener("mouseout", funcRemove(){
+                                                           document.querySelector("#images").classList.remove("bigger");
+                                                           });
 
-        document.getElementById("quote").addEventListener("click", function(){
+        document.querySelector("#quote").addEventListener("click", function(){
             window.open('https://quoteinvestigator.com/2014/05/27/rising/');
         });
         
-        function func(){
-            document.getElementById("images").classList.add("bigger");
-        }
-        
-        function funcRemove(){
-            document.getElementById("images").classList.remove("bigger");
-        }
+//         function func(){ // //document.querySelector("#images").classList.add("bigger"); // document.querySelector("#images").class = "bigger"; // } // function funcRemove(){ // document.querySelector("#images").classList.remove("bigger"); // }
 
     </script>
 
