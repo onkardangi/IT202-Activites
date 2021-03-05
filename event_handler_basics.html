@@ -29,20 +29,23 @@
       
 
     <script>
-        
-        document.querySelector("#images").addEventListener("mouseover", funcAdd(){
-                                                           document.querySelector("#images").classList.add("bigger");
-                                                           });
 
-        document.querySelector("#images").addEventListener("mouseout", funcRemove(){
-                                                           document.querySelector("#images").classList.remove("bigger");
-                                                           });
+      document.querySelectorAll("img").forEach( (element) => {
+        element.addEventListener("mouseover", (event) => {
+          console.log(event);
+          event.target.classList.add("bigger");
+        })
 
-        document.querySelector("#quote").addEventListener("click", function(){
-            window.open('https://quoteinvestigator.com/2014/05/27/rising/');
-        });
+        element.addEventListener("mouseout", (event) => {
+          console.log(event);
+          event.target.classList.remove("bigger");
+        })
+      })
+
+      document.querySelector("#quote").addEventListener("click", (event) => {
+          window.open(event.target.getAttribute('cite'));
+      });
         
-//         function func(){ // //document.querySelector("#images").classList.add("bigger"); // document.querySelector("#images").class = "bigger"; // } // function funcRemove(){ // document.querySelector("#images").classList.remove("bigger"); // }
 
     </script>
 
