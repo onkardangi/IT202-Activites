@@ -40,11 +40,47 @@
         
       }
 	</script>
+
+
+  <script type="text/javascript">
+		google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        let data = new google.visualization.DataTable();
+        
+        data.addColumn('string', 'Date');
+        data.addColumn('number', 'Total Number of Doses');
+
+        fetch("https://data.cityofchicago.org/resource/553k-3xzc.json?$SELECT=date,sum(total_doses_cumulative)&$GROUP=date&$ORDER=date")
+        .then( (response) => { return response.json()})
+        .then( (dept) => {
+          
+          dept.forEach( (record) => {
+
+            console.log([record.date, parseInt(record.sum_total_doses_cumulative)]);
+            data.addRow( [record.date, parseInt(record.sum_total_doses_cumulative)] );
+          });
+
+          var options = {
+            title: 'Covid 19 Vaccination',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+          };
+
+          var chart = new google.visualization.LineChart(document.querySelector('#curve_chart'));
+
+          chart.draw(data, options);
+        });
+      }
+	</script>
 </head>
 
 <body>
 	<!--Div that will hold the pie chart-->
 	<div id="chart_div"></div>
+  <div id="curve_chart" style="width: 900px; height: 500px"></div>
 </body>
 
 </html>
