@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Crime Data Set</title>
+    <link href="https://unpkg.com/material-components-web@10.0.0/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@10.0.0/dist/material-components-web.min.js">
+    </script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <header class="mdc-top-app-bar">
+        <div class="mdc-top-app-bar__row">
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button" aria-label="Open navigation menu">menu</button>
+                <span class="mdc-top-app-bar__title">Crime Data Set</span>
+            </section>
+            <!-- <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+                <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Favorite">favorite</button>
+                <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">search</button>
+                <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Options">more_vert</button>
+            </section> -->
+        </div>
+    </header>
+
+    <!-- Drawer -->
+    <aside class="mdc-drawer mdc-drawer--modal">
+        <div class="mdc-drawer__content">
+            <nav class="mdc-list">
+                <a class="mdc-list-item mdc-list-item--activated" href="index.html" aria-current="page" tabindex="0">
+                    <span class="mdc-list-item__ripple"></span>
+                    <i class="material-icons mdc-list-item__graphic" aria-hidden="true">inbox</i>
+                    <span class="mdc-list-item__text">Home</span>
+                </a>
+                <a class="mdc-list-item" href="#">
+                    <span class="mdc-list-item__ripple"></span>
+                    <i class="material-icons mdc-list-item__graphic" aria-hidden="true">databas</i>
+                    <span class="mdc-list-item__text">DataSet</span>
+                </a>
+                <a class="mdc-list-item" href="weather.html">
+                    <span class="mdc-list-item__ripple"></span>
+                    <i class="material-icons mdc-list-item__graphic" aria-hidden="true">send</i>
+                    <span class="mdc-list-item__text">Weather</span>
+                </a>
+                <a class="mdc-list-item" href="map.html">
+                    <span class="mdc-list-item__ripple"></span>
+                    <i class="material-icons mdc-list-item__graphic" aria-hidden="true">map</i>
+                    <span class="mdc-list-item__text">Maps</span>
+                </a>
+
+                <a class="mdc-list-item" href="contacts.html">
+                    <span class="mdc-list-item__ripple"></span>
+                    <i class="material-icons mdc-list-item__graphic" aria-hidden="true">list</i>
+                    <span class="mdc-list-item__text">Contacts</span>
+                </a>
+
+                <a class="mdc-list-item" href="about.html">
+                    <span class="mdc-list-item__ripple"></span>
+                    <i class="material-icons mdc-list-item__graphic" aria-hidden="true">drafts</i>
+                    <span class="mdc-list-item__text">About the Project</span>
+                </a>
+            </nav>
+        </div>
+    </aside>
+    <div class="mdc-drawer-scrim"></div>
+
+
+    <!-- Main Home -->
+    <main class="mdc-top-app-bar--fixed-adjust">
+
+        <div style="margin-top: 20px; margin-left: 20px;">
+            <label for="case"> Case Number:</label>
+
+            <label class="mdc-text-field mdc-text-field--filled mdc-text-field--no-label" style="margin-left: 30px;">
+            <span class="mdc-text-field__ripple"></span>
+            <input class="mdc-text-field__input" type="text" placeholder="Enter the Case Number" aria-label="Label" id="case">
+            <span class="mdc-line-ripple"></span>
+            </label>
+        </div>
+
+        <div style="margin-top: 20px; margin-left: 20px;">
+            <label for="block"> Block:</label>
+
+            <label class="mdc-text-field mdc-text-field--filled mdc-text-field--no-label" style="margin-left: 80px;" id="block">
+              <span class="mdc-text-field__ripple"></span>
+              <input class="mdc-text-field__input" type="text" placeholder="Enter the Address" aria-label="Label">
+              <span class="mdc-line-ripple"></span>
+            </label>
+        </div>
+
+        <div style="margin-top: 20px; margin-left: 20px;">
+            <label for="cm_area"> Community Area:</label>
+
+            <label class="mdc-text-field mdc-text-field--filled mdc-text-field--no-label" style="margin-left: 10px;" id="cm_area">
+                <span class="mdc-text-field__ripple"></span>
+                <input class="mdc-text-field__input" type="text" placeholder="Enter the Community Area" aria-label="Label" >
+                <span class="mdc-line-ripple"></span>
+            </label>
+        </div>
+
+        <div>
+            <div style="margin-top: 40px; margin-left: 120px;">
+                <button class="mdc-button mdc-button--raised" onclick="submit()">
+                    <span class="mdc-button__label">Look Up</span>
+                </button>
+            </div>
+
+            <div style="margin-top: 20px; margin-left: 100px;">
+                <button class="mdc-button mdc-button--raised" onclick="restart()">
+                    <span class="mdc-button__label">New Search</span>
+                </button>
+            </div>
+        </div>
+        <label style="font-size: xx-large; color: white;">Results</label>
+
+        <div id="card" style="padding: top 40px; display: block; visibility: hidden;">
+            <div class="mdc-card">
+                <div class="mdc-card__primary-action">
+
+                    <!-- ... additional primary action content ... -->
+                </div>
+
+                <div>
+                    <label id="arrest" style="font-size:x-large; padding-top: 20px;"> Arrest:</label>
+                </div>
+
+                <div class="mdc-card__actions">
+                    <div class="mdc-card__content">
+                        <label id="date" style="font-size:large; padding-top: 20px;"> Date:</label>
+                    </div>
+
+                    <div class="mdc-card__content" style="padding-left: 40px;">
+                        <label id="des" style="font-size:large; padding-top: 20px;"> Description:</label>
+                    </div>
+
+                    <div class="mdc-card__content" style="padding-left: 40px;">
+                        <label id="addy" style="font-size:large; padding-top: 20px;"> Address:</label>
+                    </div>
+
+                    <div class="mdc-card__content" style="padding-left: 40px;">
+                        <label id="type" style="font-size:large; padding-top: 20px;"> Type:</label>
+                    </div>
+
+                    <div class="mdc-card__action-icons">
+                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon" title="More options" onclick="restart()">more_vert</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div id="moreCards">
+            <div id="options">
+            </div>
+        </div>
+
+
+
+
+    </main>
+
+
+
+
+
+    <script>
+        //mdc.ripple.MDCRipple.attachTo(document.querySelector('.foo-button'));
+
+        const drawer = mdc.drawer.MDCDrawer.attachTo(document.querySelector('.mdc-drawer'));
+        const topAppBarElement = document.querySelector(".mdc-top-app-bar");
+
+        const listEl = document.querySelector('.mdc-drawer .mdc-list');
+        const mainContentEl = document.querySelector('main');
+
+        listEl.addEventListener('click', (event) => {
+            drawer.open = false;
+        });
+
+        document.body.addEventListener('MDCDrawer:closed', () => {
+            mainContentEl.querySelector('input, button').focus();
+        });
+
+        document.querySelector("header button.mdc-top-app-bar__navigation-icon").addEventListener("click", (event) => {
+            drawer.open = true;
+        });
+    </script>
+
+    <script>
+        const caseNumber = mdc.textField.MDCTextField.attachTo(document.querySelector('.mdc-text-field'));
+        const block = mdc.textField.MDCTextField.attachTo(document.querySelector('#block'));
+        const cmArea = mdc.textField.MDCTextField.attachTo(document.querySelector('#cm_area'));
+
+        function submit() {
+            console.log("submit button clicked");
+
+            //caseNumber = mdc.textField.MDCTextField.attachTo(document.querySelector('#case'));
+            console.log(caseNumber.value);
+            console.log(block.value);
+            console.log(cmArea.value);
+
+
+            if ((caseNumber.value != "") && (block.value != "") && (cmArea.value != "")) {
+                console.log("Test not null");
+                fetch("https://data.cityofchicago.org/resource/crimes.json")
+                    .then((response) => response.json())
+                    .then((data) => data.forEach((crime) => {
+                        if ((crime.community_area == cmArea.value) && (crime.case_number == caseNumber.value) && (crime.block == block.value)) {
+                            document.querySelector("#arrest").textContent = "Arrest:" + crime.arrest;
+                            document.querySelector("#date").textContent = "Date:" + crime.date;
+                            document.querySelector("#des").textContent = "Description:" + crime.description;
+                            document.querySelector("#addy").textContent = "Address:" + crime.block;
+                            document.querySelector("#type").textContent = "Type:" + crime.primary_type;
+
+                            var crd = document.querySelector("#card");
+                            var cln = crd.cloneNode(true);
+                            cln.style.visibility = "visible";
+                            document.body.querySelector("#options").appendChild(cln);
+
+                            console.log(crime);
+                        }
+
+                    }));
+            } else if ((block.value != "") && (cmArea.value != "")) {
+                console.log("null");
+                fetch("https://data.cityofchicago.org/resource/crimes.json")
+                    .then((response) => response.json())
+                    .then((data) => data.forEach((crime) => {
+                        if ((crime.community_area == cmArea.value) && (crime.case_number == caseNumber.value)) {
+                            document.querySelector("#arrest").textContent = "Arrest:" + crime.arrest;
+                            document.querySelector("#date").textContent = "Date:" + crime.date;
+                            document.querySelector("#des").textContent = "Description:" + crime.description;
+                            document.querySelector("#addy").textContent = "Address:" + crime.block;
+                            document.querySelector("#type").textContent = "Type:" + crime.primary_type;
+
+                            var crd = document.querySelector("#card");
+                            var cln = crd.cloneNode(true);
+                            cln.style.visibility = "visible";
+                            document.body.querySelector("#options").appendChild(cln);
+
+                            console.log(crime);
+                        }
+
+                    }));
+            } else if ((caseNumber.value != "") && (block.value != "")) {
+                console.log("null");
+                fetch("https://data.cityofchicago.org/resource/crimes.json")
+                    .then((response) => response.json())
+                    .then((data) => data.forEach((crime) => {
+                        if ((crime.case_number == caseNumber.value) && (crime.block == block.value)) {
+                            document.querySelector("#arrest").textContent = "Arrest:" + crime.arrest;
+                            document.querySelector("#date").textContent = "Date:" + crime.date;
+                            document.querySelector("#des").textContent = "Description:" + crime.description;
+                            document.querySelector("#addy").textContent = "Address:" + crime.block;
+                            document.querySelector("#type").textContent = "Type:" + crime.primary_type;
+
+                            var crd = document.querySelector("#card");
+                            var cln = crd.cloneNode(true);
+                            cln.style.visibility = "visible";
+                            document.body.querySelector("#options").appendChild(cln);
+
+                            console.log(crime);
+                        }
+
+                    }));
+            } else if ((cmArea.value != "")) {
+                fetch("https://data.cityofchicago.org/resource/crimes.json")
+                    .then((response) => response.json())
+                    .then((data) => data.forEach((crime) => {
+                        if ((crime.community_area == cmArea.value)) {
+
+                            document.querySelector("#arrest").textContent = "Arrest:" + crime.arrest;
+                            document.querySelector("#date").textContent = "Date:" + crime.date;
+                            document.querySelector("#des").textContent = "Description:" + crime.description;
+                            document.querySelector("#addy").textContent = "Address:" + crime.block;
+                            document.querySelector("#type").textContent = "Type:" + crime.primary_type;
+
+                            var crd = document.querySelector("#card");
+                            var cln = crd.cloneNode(true);
+                            cln.style.visibility = "visible";
+                            document.body.querySelector("#options").appendChild(cln);
+
+                            console.log(crime);
+                        }
+
+                        //document.body.querySelector()
+
+                    }));
+            } else if ((caseNumber.value != "")) {
+                fetch("https://data.cityofchicago.org/resource/crimes.json")
+                    .then((response) => response.json())
+                    .then((data) => data.forEach((crime) => {
+                        if ((crime.case_number == caseNumber.value)) {
+
+                            document.querySelector("#arrest").textContent = "Arrest:" + crime.arrest;
+                            document.querySelector("#date").textContent = "Date:" + crime.date;
+                            document.querySelector("#des").textContent = "Description:" + crime.description;
+                            document.querySelector("#addy").textContent = "Address:" + crime.block;
+                            document.querySelector("#type").textContent = "Type:" + crime.primary_type;
+
+                            var crd = document.querySelector("#card");
+                            var cln = crd.cloneNode(true);
+                            cln.style.visibility = "visible";
+                            document.body.querySelector("#options").appendChild(cln);
+
+                            console.log(crime);
+                        }
+
+                    }));
+            } else if ((block.value != "")) {
+                fetch("https://data.cityofchicago.org/resource/crimes.json")
+                    .then((response) => response.json())
+                    .then((data) => data.forEach((crime) => {
+                        if ((crime.block == block.value)) {
+
+                            document.querySelector("#arrest").textContent = "Arrest:" + crime.arrest;
+                            document.querySelector("#date").textContent = "Date:" + crime.date;
+                            document.querySelector("#des").textContent = "Description:" + crime.description;
+                            document.querySelector("#addy").textContent = "Address:" + crime.block;
+                            document.querySelector("#type").textContent = "Type:" + crime.primary_type;
+
+                            var crd = document.querySelector("#card");
+                            var cln = crd.cloneNode(true);
+                            cln.style.visibility = "visible";
+                            document.body.querySelector("#options").appendChild(cln);
+
+                            console.log(crime);
+                        }
+
+                    }));
+            }
+
+
+        }
+    </script>
+
+    <script>
+        function restart() {
+            caseNumber.value = "";
+            block.value = "";
+            cmArea.value = "";
+
+            document.querySelector("#arrest").textContent = "Arrest:";
+            document.querySelector("#date").textContent = "Date:";
+            document.querySelector("#des").textContent = "Description:";
+            document.querySelector("#addy").textContent = "Address:";
+            document.querySelector("#type").textContent = "Type:";
+
+            document.querySelector("#options").remove();
+        }
+    </script>
+
+</body>
+
+</html>
